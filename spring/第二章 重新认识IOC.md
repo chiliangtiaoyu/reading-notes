@@ -249,7 +249,19 @@ protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 
 所以说Spring bean的维护和生命周期的管理均在BeanFactory的实现类中，绝大多数是指的`DefaultListableBeanFactory`
 
-而且ApplicationContext是BeanFactory的一个子类
+而且ApplicationContext是BeanFactory的一个子类，前者还更强，可以通过注解获取bean
 
 ### Spring应用上下文
+
+### 面试题
+
+什么是BeanFactory和FactoryBean的区别？
+
+BeanFactory是IOC的底层容器
+
+FactoryBean是创建Bean的一种方式，帮助实现复杂的初始化逻辑，例如我们普通的pojo去实现这个接口，重写getObject()方法，这个方法会被容器调用，也就是说容器getBean的时候获取的是getObject的实现。
+
+但是这种创建Bean的方式已经很少用了一般都被@Bean注解代替了
+
+
 
