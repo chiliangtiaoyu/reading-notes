@@ -91,15 +91,15 @@ public class Singleton {
 
 分为静态绑定和动态绑定，首先方法调用编译成汇编指令的时候，对应五种方法调用类型分别是：
 
-invokestatic ：静态方法调用指令
+**invokestatic** ：静态方法调用指令
 
-invokespecial ：特殊方法调用指令例如构造方法super方法
+**invokespecial** ：特殊方法调用指令例如构造方法super方法
 
-invokevirtual  ：实例化对象的非私有方法
+**invokevirtual**  ：实例化对象的非私有方法
 
-invokeinterface ：接口方法
+**invokeinterface** ：接口方法
 
-invokedynamic：方法句柄质量
+**invokedynamic**：方法句柄指令
 
 前两者属于静态绑定，因为在调用的时候不需要进行判断直接可以确定方法本身
 
@@ -170,10 +170,10 @@ class SuperPerson extends Person{
 
 内联缓存又分为
 
-单态内联：缓存一个调用者类型
+**单态内联**：缓存一个调用者类型
 
-多态内联：缓存多个，按照热点方法排序
+**多态内联**：缓存多个，按照热点方法排序
 
-超态内联：不缓存
+**超态内联**：不缓存
 
 也不是说缓存一定就好，比如单态缓存调用者类型不断变更，那还不如不缓存直接查表，还增加了刷新缓存的消耗
