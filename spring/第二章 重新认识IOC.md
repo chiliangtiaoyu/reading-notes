@@ -1,3 +1,5 @@
+
+
 ## 2 重新认识IOC
 
 ### 2.1 什么是IOC?
@@ -239,5 +241,111 @@ FactoryBean是创建Bean的一种方式，帮助实现复杂的初始化逻辑�
 
 但是这种创建Bean的方式已经很少用了一般都被@Bean注解代替了
 
+## 4 spring创建Bean
 
+@Import、@Component方式进行导入组件
+
+```java
+@Import(CreateUserBean.Config.class)
+public class CreateUserBean {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
+        annotationConfigApplicationContext.register(CreateUserBean.class);
+        //自定义注册
+        registerUserBeanDefinition(annotationConfigApplicationContext);
+        //启动上下文
+        annotationConfigApplicationContext.refresh();
+        System.out.println("user的类型:"+annotationConfigApplicationContext.getBeansOfType(User.class));
+        System.out.println("user的类型:"+annotationConfigApplicationContext.getBeansOfType(Config.class));
+        //关闭应用上下文
+        annotationConfigApplicationContext.close();
+    }
+
+    public static void registerUserBeanDefinition(BeanDefinitionRegistry registry,String beanName){
+        BeanDefinitionBuilder beanDefinitionBuilder = genericBeanDefinition(User.class);
+        beanDefinitionBuilder.addPropertyValue("name","张三")
+                .addPropertyValue("age",13);
+        if (StringUtils.hasText(beanName)){
+            registry.registerBeanDefinition(beanName,beanDefinitionBuilder.getBeanDefinition());
+        }else {
+            BeanDefinitionReaderUtils.registerWithGeneratedName(beanDefinitionBuilder.getBeanDefinition(),registry);
+        }
+    }
+    public static void registerUserBeanDefinition(BeanDefinitionRegistry registry){
+        registerUserBeanDefinition(registry,null);
+    }
+    //注解注入
+    @Component
+    static class Config {
+        @Bean(name = {"user","bieminguser"})
+        public User getUser() {
+            return new User() {{
+                setName("zhangsan");
+                setAge(12);
+            }};
+        }
+    }
+}
+
+```
+
+spring的初始化与销毁，看代码所示
+
+```java
+public class InitBeanDemo {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        applicationContext.register(InitBeanDemo.class);
+        applicationContext.refresh();
+        System.out.println("启动上下文");
+        applicationContext.getBean(UserFactory.class);
+        applicationContext.close();
+    }
+    @Bean(initMethod = "customizeInitMethod",destroyMethod = "customizeDestroy")
+    @Lazy
+    public UserFactory getUserFactory(){
+        return new DefaultUserFactory();
+    }
+}
+```
+
+```java
+public class DefaultUserFactory implements UserFactory , InitializingBean, DisposableBean {
+
+    @PostConstruct
+    public void initMethod(){
+        System.out.println("注解初始化中");
+    }
+
+    public void customizeInitMethod(){
+        System.out.println("自定义方法初始化");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("接口实现初始化");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("接口是实现注销");
+    }
+
+    public void customizeDestroy(){
+        System.out.println("自定义方法销毁");
+    }
+
+    @PreDestroy
+    public void preDestroy(){
+        System.out.println("注解方法销毁中");
+    }
+}
+
+```
+
+`applicationContext.getBeanFactory().registerSingleton();`用于注册外部bean
+
+### 面试题
+
+什么是BeanDefinition?
 
