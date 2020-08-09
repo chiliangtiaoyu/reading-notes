@@ -241,6 +241,8 @@ FactoryBean是创建Bean的一种方式，帮助实现复杂的初始化逻辑�
 
 但是这种创建Bean的方式已经很少用了一般都被@Bean注解代替了
 
+BeanFactory和ObjectFactory之间的一个区别是前者是对后者的一个实现。
+
 ## 4 spring创建Bean
 
 @Import、@Component方式进行导入组件
