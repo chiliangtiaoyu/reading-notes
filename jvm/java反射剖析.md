@@ -109,7 +109,7 @@ class SuperPerson extends Person{
   }
 ```
 
-而 `MethodAccessor`只是一个借口，里面有两个实现 `DelegatingMethodAccessorImpl` 和 `NativeMethodAccessorImpl` 前者实际上也是一个委派模式，委派给本地实现也就是最终调用本地native方法，那为什么要进行一个委派这么麻烦呢，直接调用本地实现不好吗？
+而 `MethodAccessor`只是一个接口，里面有两个实现 `DelegatingMethodAccessorImpl` 和 `NativeMethodAccessorImpl` 前者实际上也是一个委派模式，委派给本地实现也就是最终调用本地native方法，那为什么要进行一个委派这么麻烦呢，直接调用本地实现不好吗？
 
 那是因为jvm还会有个动态生成字节码的优化，当调用次数达到15次的时候就会被优化成动态实现，根据官方的解释动态实现运行效率比本地实现高20倍（因为无需java到C++到java的转换），但是由于字节码生成非常的耗时，单词调用的话效率会差上3-4倍，所以需要一个阈值（ Dsun.reflect.inflationThreshold= ），达到这个阈值就进行开启这个过程就叫做 Inflation 。
 
