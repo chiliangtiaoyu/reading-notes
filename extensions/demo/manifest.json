@@ -1,8 +1,7 @@
 {
-    "name": "Getting Started Example",
+    "name": "Country Zone Conversion",
     "version": "1.0",
     "description": "Build an Extension!",
-    "options_page": "options.html",
     "permissions": ["activeTab", "declarativeContent", "storage"],
     "background": {
       "scripts": ["background.js"],
@@ -11,17 +10,17 @@
     "page_action": {
       "default_popup": "popup.html",
       "default_icon": {
-        "16": "images/get_started16.png",
-        "32": "images/get_started32.png",
-        "48": "images/get_started48.png",
-        "128": "images/get_started128.png"
+        "16": "images/earth_16.png",
+        "32": "images/earth_32.png",
+        "48": "images/earth_48.png",
+        "128": "images/earth_128.png"
       }
     },
     "icons": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
+      "16": "images/earth_16.png",
+      "32": "images/earth_32.png",
+      "48": "images/earth_48.png",
+      "128": "images/earth_128.png"
     },
     "manifest_version": 2
   }
