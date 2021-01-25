@@ -1,26 +1,51 @@
 {
-    "name": "Country Zone Conversion",
-    "version": "1.0",
-    "description": "Build an Extension!",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
-    "background": {
-      "scripts": ["background.js"],
-      "persistent": false
-    },
-    "page_action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "images/earth_16.png",
-        "32": "images/earth_32.png",
-        "48": "images/earth_48.png",
-        "128": "images/earth_128.png"
-      }
-    },
-    "icons": {
+  "name": "Country Zone Conversion",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
       "16": "images/earth_16.png",
       "32": "images/earth_32.png",
       "48": "images/earth_48.png",
       "128": "images/earth_128.png"
-    },
-    "manifest_version": 2
-  }
+    }
+  },
+  "icons": {
+    "16": "images/earth_16.png",
+    "32": "images/earth_32.png",
+    "48": "images/earth_48.png",
+    "128": "images/earth_128.png"
+  },
+  "content_scripts": [
+    {
+      //对页面内容进行操作的脚本
+      "matches": [
+        //在什么地方注入
+        "file:///*/*",
+        "http://*/*",
+        "https://*/*",
+        "https://global-oss.zmqdez.com/front_end/*"
+      ],
+      "exclude_matches": [
+      ],
+      "js": [
+        "js/custom.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "manifest_version": 2
+}
