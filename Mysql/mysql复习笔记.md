@@ -146,11 +146,8 @@ Online DDL过程
 
 **唯一索引不能用**
 
-因为每次会检查是否存在，必须的随机读不能减少![]()
-
-
+因为每次会检查是否存在，必须的随机读不能减少!
 
 redo log用顺序写减少**随机写**，change buffer 用顺序写减少**随机读**
 
-![1611578549772](C:\Users\sid.y.zhang\AppData\Roaming\Typora\typora-user-images\1611578549772.png)
-
+<img src="../pic/1611581500258.png" alt="1611581500258" style="zoom:50%;" />
